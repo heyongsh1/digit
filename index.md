@@ -20,6 +20,10 @@ To keep this codebase simple and small, some important capabilities are intentio
 
 Examples of the these capabilities will be provided elsewhere.
 
+##  Landing Page Picture
+
+<img src="public/any.png">
+
 ## Installation
 
 First, [install PostgreSQL](https://www.postgresql.org/download/). Then create a database for your application.
@@ -167,7 +171,7 @@ The src/ directory has this structure:
 app/
 
   add/ # The add route
-    page.tsx # The Add Stuff Page
+    page.tsx # The Add Contact Page
 
   admin/
     page.tsx # The Admin Page
@@ -189,10 +193,10 @@ app/
       page.tsx # The Sign Up / Register Page
 
   edit/
-    page.tsx # The Edit Stuff Page
+    page.tsx # The Edit Contact Page
 
   list/
-    page.tsx # The List Stuff Page
+    page.tsx # The List Contact Page
 
   not-authorized/
     page.tsx # The Not Authorized Page
@@ -204,9 +208,9 @@ app/
   providers.tsx # Session providers.
 
   components/
-    AddStuffForm.tsx # The React Hook Form for adding stuff.
+    AddContactForm.tsx # The React Hook Form for adding Contact.
 
-    EditStuffForm.tsx # The Edit Stuff Form.
+    EditContactForm.tsx # The Edit Contact Form.
 
     Footer.tsx # The application footer.
 
@@ -214,9 +218,9 @@ app/
 
     Navbar.tsx # The application navbar.
 
-    StuffItem.tsx # Row in the list stuff page.
+    ContactItem.tsx # Row in the list Contact page.
 
-    StuffItemAdmin.tsx # Row in the admin list stuff page.
+    ContactItemAdmin.tsx # Row in the admin list Contact page.
 
   lib/
 
@@ -234,9 +238,9 @@ app/
 
 ### Application functionality
 
-The application implements a simple CRUD application for managing "Stuff", which is a PostgreSQL table consisting of a name (String), a quantity (Number), a condition (one of 'excellent', 'good', 'fair', or 'poor') and an owner.
+The application implements a simple CRUD application for managing "Contact", which is a PostgreSQL table consisting of a name (String), a quantity (Number), a condition (one of 'excellent', 'good', 'fair', or 'poor') and an owner.
 
-By default, each user only sees the Stuff that they have created. However, the settings file enables you to define default accounts. If you define a user with the role "admin", then that user gets access to a special page which lists all the Stuff defined by all users.
+By default, each user only sees the Contact that they have created. However, the settings file enables you to define default accounts. If you define a user with the role "admin", then that user gets access to a special page which lists all the Contact defined by all users.
 
 #### Landing page
 
@@ -264,27 +268,27 @@ Once you log in (either to an existing account or by creating a new one), the na
 
 ![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/landing-after-login-page.png)
 
-You can now add new Stuff documents, and list the Stuff you have created. Note you cannot see any Stuff created by other users.
+You can now add new Contact documents, and list the Contact you have created. Note you cannot see any Contact created by other users.
 
-#### Add Stuff page
+#### Add Contact page
 
-After logging in, here is the page that allows you to add new Stuff:
+After logging in, here is the page that allows you to add new Contact:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/add-stuff-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/add-Contact-page.png)
 
-#### List Stuff page
+#### List Contact page
 
-After logging in, here is the page that allows you to list all the Stuff you have created:
+After logging in, here is the page that allows you to list all the Contact you have created:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/list-stuff-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/list-Contact-page.png)
 
-You click the "Edit" link to go to the Edit Stuff page, shown next.
+You click the "Edit" link to go to the Edit Contact page, shown next.
 
-#### Edit Stuff page
+#### Edit Contact page
 
 After clicking on the "Edit" link associated with an item, this page displays that allows you to change and save it:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/edit-stuff-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/edit-Contact-page.png)
 
 #### Landing (after Login), Admin user
 
@@ -292,19 +296,19 @@ You can define an "admin" user in the settings.json file. This user, after loggi
 
 ![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/admin-landing-page.png)
 
-#### Admin page (list all users stuff)
+#### Admin page (list all users Contact)
 
-To provide a simple example of a "super power" for Admin users, the Admin page lists all of the Stuff by all of the users:
+To provide a simple example of a "super power" for Admin users, the Admin page lists all of the Contact by all of the users:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/admin-list-stuff-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/admin-list-Contact-page.png)
 
 Note that non-admin users cannot get to this page, even if they type in the URL by hand.
 
 ### Tables
 
-The application implements two tables "Stuff" and "User". Each Stuff row has the following columns: id, name, quantity, condition, and owner. The User table has the following columns: id, email, password (hashed using bcrypt), role.
+The application implements two tables "Contact" and "User". Each Contact row has the following columns: id, name, quantity, condition, and owner. The User table has the following columns: id, email, password (hashed using bcrypt), role.
 
-The Stuff and User models are defined in [prisma/schema.prisma](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/prisma/schema.prisma).
+The Contact and User models are defined in [prisma/schema.prisma](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/prisma/schema.prisma).
 
 The tables are initialized in [prisma/seed.ts](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/prisma/seed.ts) using the command `npx prisma db seed`.
 
@@ -339,13 +343,13 @@ Routing is defined by the directory structure.
 
 For authentication, the application uses the NextAuth package.
 
-When the database is seeded, a settings file (such as [config/settings.development.json](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/config/settings.development.json)) is used to create users and stuff in the PostgreSQL database. That will lead to a default accounts being created.
+When the database is seeded, a settings file (such as [config/settings.development.json](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/config/settings.development.json)) is used to create users and Contact in the PostgreSQL database. That will lead to a default accounts being created.
 
 The application allows users to register and create new accounts at any time.
 
 ### Authorization
 
-Only logged in users can manipulate Stuff items (but any registered user can manipulate any Stuff item, even if they weren't the user that created it.)
+Only logged in users can manipulate Contact items (but any registered user can manipulate any Contact item, even if they weren't the user that created it.)
 
 ### Configuration
 

@@ -1,4 +1,4 @@
-import { PrismaClient, Role, Condition } from '@prisma/client';
+import { PrismaClient, Role} from '@prisma/client';
 import { hash } from 'bcrypt';
 import * as config from '../config/settings.development.json';
 
@@ -7,6 +7,8 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('Seeding the database');
   const password = await hash('changeme', 10);
+
+  // Create users
   config.defaultAccounts.forEach(async (account) => {
     let role: Role = 'USER';
     if (account.role === 'ADMIN') {
@@ -22,30 +24,11 @@ async function main() {
         role,
       },
     });
-    // console.log(`  Created user: ${user.email} with role: ${user.role}`);
   });
-  config.defaultData.forEach(async (data, index) => {
-    let condition: Condition = 'good';
-    if (data.condition === 'poor') {
-      condition = 'poor';
-    } else if (data.condition === 'excellent') {
-      condition = 'excellent';
-    } else {
-      condition = 'fair';
-    }
-    console.log(`  Adding stuff: ${data.name} (${data.owner})`);
-    await prisma.stuff.upsert({
-      where: { id: index + 1 },
-      update: {},
-      create: {
-        name: data.name,
-        quantity: data.quantity,
-        owner: data.owner,
-        condition,
-      },
-    });
-  });
+
+  // Create contacts
   config.defaultContacts.forEach(async (contact, index) => {
+    console.log(`  Adding Contact: ${contact.firstName} ${contact.lastName} (${contact.owner})`);
     await prisma.contact.upsert({
       where: { id: index },
       update: {},
@@ -60,6 +43,7 @@ async function main() {
     });
   });
 }
+
 main()
   .then(() => prisma.$disconnect())
   .catch(async (e) => {

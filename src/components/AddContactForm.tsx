@@ -27,7 +27,7 @@ const onSubmit = async (data: {
 
 const AddContactForm: React.FC = () => {
   const { data: session, status } = useSession();
-  // console.log('AddStuffForm', status, session);
+  // console.log('AddContactForm', status, session);
   const currentUser = session?.user?.email || '';
   const {
     register,
