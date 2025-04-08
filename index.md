@@ -22,7 +22,7 @@ Examples of the these capabilities will be provided elsewhere.
 
 ##  Landing Page Picture
 
-<img src="public/any.png">
+<img src="doc/Landing.png">
 
 ## Installation
 
