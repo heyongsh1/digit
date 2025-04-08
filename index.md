@@ -1,28 +1,6 @@
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/landing-page.png)
 
-nextjs-application-template is a sample Next.js 14 application that illustrates:
 
-- A standard directory layout using 'src/' as recommended in the [Next.js Project Structure](https://nextjs.org/docs/getting-started/project-structure) guide.
-- [Bootstrap 5 React](https://react-bootstrap.github.io/) for user interface.
-- [React Hook Form](https://www.react-hook-form.com/) for form development.
-- Authorization, authentication, and registration using [NextAuth.js](https://next-auth.js.org/).
-- Initialization of users and data from a settings file.
-- Alerts regarding success or failure of DB updates using [Sweet Alert](https://sweetalert.js.org/).
-- Quality assurance using [ESLint](http://eslint.org) with packages to partially enforce the [Next.js ESLint rules](https://nextjs.org/docs/app/building-your-application/configuring/eslint) and the [AirBnB Javascript Style Guide](https://github.com/airbnb/javascript).
-
-The goal of this template is to help you get quickly started doing Next.js development by providing a reasonable directory structure for development and deployment, a set of common extensions to the core framework, and boilerplate code to implement basic page display, navigation, forms, roles, and database manipulation.
-
-To keep this codebase simple and small, some important capabilities are intentionally excluded from this template:
-
-- Unit Testing
-- Security
-- Deployment
-
-Examples of the these capabilities will be provided elsewhere.
-
-##  Landing Page Picture
-
-<img src="doc/Landing.png">
+<img src="public/Landing.png">
 
 ## Installation
 
@@ -246,7 +224,7 @@ By default, each user only sees the Contact that they have created. However, the
 
 When you retrieve the app at http://localhost:3000, this is what should be displayed:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/landing-page.png)
+<img src="public/Landing.png">
 
 The next step is to use the Login menu to either Login to an existing account or register a new account.
 
@@ -254,19 +232,19 @@ The next step is to use the Login menu to either Login to an existing account or
 
 Clicking on the Login link, then on the Sign In menu item displays this page:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/signin-page.png)
+<img src="public/login.png">
 
 #### Register page
 
 Alternatively, clicking on the Login link, then on the Sign Up menu item displays this page:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/register-page.png)
+<img src="public/register.png">
 
 #### Landing (after Login) page, non-Admin user
 
 Once you log in (either to an existing account or by creating a new one), the navbar changes as follows:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/landing-after-login-page.png)
+<img src="public/normaluser.png">
 
 You can now add new Contact documents, and list the Contact you have created. Note you cannot see any Contact created by other users.
 
@@ -274,13 +252,13 @@ You can now add new Contact documents, and list the Contact you have created. No
 
 After logging in, here is the page that allows you to add new Contact:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/add-Contact-page.png)
+<img src="public/addcontact.png">
 
 #### List Contact page
 
 After logging in, here is the page that allows you to list all the Contact you have created:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/list-Contact-page.png)
+<img src="public/listcontact.png">
 
 You click the "Edit" link to go to the Edit Contact page, shown next.
 
@@ -288,103 +266,12 @@ You click the "Edit" link to go to the Edit Contact page, shown next.
 
 After clicking on the "Edit" link associated with an item, this page displays that allows you to change and save it:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/edit-Contact-page.png)
+<img src="public/editcontact.png">
 
-#### Landing (after Login), Admin user
-
-You can define an "admin" user in the settings.json file. This user, after logging in, gets a special entry in the navbar:
-
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/admin-landing-page.png)
-
-#### Admin page (list all users Contact)
+#### Admin page 
 
 To provide a simple example of a "super power" for Admin users, the Admin page lists all of the Contact by all of the users:
 
 ![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/admin-list-Contact-page.png)
 
-Note that non-admin users cannot get to this page, even if they type in the URL by hand.
-
-### Tables
-
-The application implements two tables "Contact" and "User". Each Contact row has the following columns: id, name, quantity, condition, and owner. The User table has the following columns: id, email, password (hashed using bcrypt), role.
-
-The Contact and User models are defined in [prisma/schema.prisma](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/prisma/schema.prisma).
-
-The tables are initialized in [prisma/seed.ts](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/prisma/seed.ts) using the command `npx prisma db seed`.
-
-### CSS
-
-The application uses the [React implementation of Bootstrap 5](https://react-bootstrap.github.io/). You can adjust the theme by editing the `src/app/globals.css` file. To change the theme override the Bootstrap 5 CSS variables.
-
-```css
-/* Change bootstrap variable values.
- See https://getbootstrap.com/docs/5.2/customize/css-variables/
- */
-body {
-  --bs-light-rgb: 236, 236, 236;
-}
-
-/* Define custom styles */
-.gray-background {
-  background-color: var(--bs-gray-200);
-  color: var(--bs-dark);
-  padding-top: 10px;
-  padding-bottom: 20px;
-}
-```
-
-### Routing
-
-For display and navigation among its four pages, the application uses [Next.js App Router](https://nextjs.org/docs/app/building-your-application/routing).
-
-Routing is defined by the directory structure.
-
-### Authentication
-
-For authentication, the application uses the NextAuth package.
-
-When the database is seeded, a settings file (such as [config/settings.development.json](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/config/settings.development.json)) is used to create users and Contact in the PostgreSQL database. That will lead to a default accounts being created.
-
-The application allows users to register and create new accounts at any time.
-
-### Authorization
-
-Only logged in users can manipulate Contact items (but any registered user can manipulate any Contact item, even if they weren't the user that created it.)
-
-### Configuration
-
-The [config](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/config) directory is intended to hold settings files. The repository contains one file: [config/settings.development.json](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/config/settings.development.json).
-
-The [.gitignore](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/.gitignore) file prevents a file named settings.production.json from being committed to the repository. So, if you are deploying the application, you can put settings in a file named settings.production.json and it will not be committed.
-
-### Quality Assurance
-
-#### ESLint
-
-The application includes a [.eslintrc.json](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/.eslintrc.json) file to define the coding style adhered to in this application. You can invoke ESLint from the command line as follows:
-
-```
-[~/nextjs-application-template]-> npm run lint
-
-> nextjs-application-template-1@0.1.0 lint
-> next lint
-
-✔ No ESLint warnings or errors
-[~/nextjs-application-template]->
-```
-
-ESLint should run without generating any errors.
-
-It's significantly easier to do development with ESLint integrated directly into your IDE (such as VSCode).
-
-<!--
-## Screencasts
-
-For more information about this system, please watch one or more of the following screencasts. Note that the current source code might differ slightly from the code in these screencasts, but the changes should be very minor.
-
-- [Walkthrough of system user interface (6 min)](https://youtu.be/48xu1hrqUi8)
-- [Data and accounts structure and initialization (18 min)](https://youtu.be/HZRjwrVBWp4)
-- [Navigation, routing, pages, components (34 min)](https://youtu.be/XztTdHpv6Jw)
-- [Forms (32 min)](https://youtu.be/8FyWR3gUGCM)
-- [Authorization, authentication, and roles (12 min)](https://youtu.be/9HX5vuXTlvA)
--->
+<img src="public/admin.png">
