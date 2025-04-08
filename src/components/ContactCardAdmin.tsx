@@ -19,7 +19,7 @@ const ContactCardAdmin = ({ contact, notes }: { contact: Contact, notes: Note[] 
     <Card.Body>
       <Card.Text>{contact.description}</Card.Text>
       <ListGroup variant="flush">
-        {notes.map((note) => (
+        {(notes || []).map((note) => ( // Ensures notes is always an array
           <NoteItem key={note.id} note={note} />
         ))}
       </ListGroup>
